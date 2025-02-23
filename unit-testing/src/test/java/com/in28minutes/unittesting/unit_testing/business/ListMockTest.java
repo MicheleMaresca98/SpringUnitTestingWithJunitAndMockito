@@ -8,6 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.anyInt;
 
 public class ListMockTest {
 
@@ -31,6 +32,13 @@ public class ListMockTest {
         when(mock.get(0)).thenReturn("in28Minutes");
         assertEquals("in28Minutes", mock.get(0));
         assertNull(mock.get(1));
+    }
+
+    @Test
+    public void returnWithGenericParameters() {
+        when(mock.get(anyInt())).thenReturn("in28Minutes");
+        assertEquals("in28Minutes", mock.get(0));
+        assertEquals("in28Minutes", mock.get(1));
     }
 
 }
