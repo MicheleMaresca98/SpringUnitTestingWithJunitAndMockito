@@ -3,6 +3,7 @@ package com.in28minutes.unittesting.unit_testing.business;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -81,6 +82,36 @@ public class ListMockTest {
         List<String> allValues = captor.getAllValues();
         assertEquals("SomeString1", allValues.get(0));
         assertEquals("SomeString2", allValues.get(1));
+    }
+
+    @Test
+    public void mocking() {
+        ArrayList arrayListMock = mock(ArrayList.class);
+        arrayListMock.get(0); // null
+        assertEquals(0, arrayListMock.size()); // 0
+        arrayListMock.add("Test");
+        arrayListMock.add("Test2");
+        assertEquals(0, arrayListMock.size()); // 0
+        when(arrayListMock.size()).thenReturn(5);
+        assertEquals(5, arrayListMock.size()); // 5
+    }
+
+    @Test
+    public void spying() {
+        ArrayList arrayListSpy = spy(ArrayList.class);
+        // arrayListSpy.get(0); // exception IndexOutOfBoundsException
+        arrayListSpy.add("Test0");
+        arrayListSpy.get(0);
+        assertEquals(1, arrayListSpy.size()); // 1
+        arrayListSpy.add("Test1");
+        arrayListSpy.add("Test2");
+        assertEquals(3, arrayListSpy.size()); // 3
+        when(arrayListSpy.size()).thenReturn(5);
+        assertEquals(5, arrayListSpy.size()); // 5
+        arrayListSpy.add("Test4");
+        assertEquals(5, arrayListSpy.size()); // 5
+
+        verify(arrayListSpy).add("Test4");
     }
 
 }
